@@ -32,14 +32,14 @@ internal class MSLearnSearchService(
     : IMSLearnSearchService
 {
     public async Task<SearchResponse> SearchAsync(
-            string query, 
-            string scope, 
-            string locale, 
-            string[] facets, 
-            string filter, 
-            int take = 10, 
-            bool expandScope = true, 
-            string partnerId = "LearnSite", 
+            string query,
+            string scope,
+            string locale,
+            string[] facets,
+            string filter,
+            int take = 10,
+            bool expandScope = true,
+            string partnerId = "LearnSite",
             CancellationToken cancellationToken = default)
         => await SearchAsync(searchRequest: new()
         {
@@ -54,7 +54,7 @@ internal class MSLearnSearchService(
         }, cancellationToken: cancellationToken);
 
     public async Task<SearchResponse> SearchAsync(
-        Action<SearchRequest> searchRequestAction, 
+        Action<SearchRequest> searchRequestAction,
         CancellationToken cancellationToken = default)
     {
         SearchRequest searchRequest = new();
@@ -66,7 +66,7 @@ internal class MSLearnSearchService(
     }
 
     public async Task<SearchResponse> SearchAsync(
-        SearchRequest searchRequest, 
+        SearchRequest searchRequest,
         CancellationToken cancellationToken = default)
     {
         var httpClient = httpClientFactory.CreateClient(
@@ -78,7 +78,7 @@ internal class MSLearnSearchService(
         queryString["locale"] = searchRequest.Locale;
 
         // TODO: implement facets
-    
+
         queryString["$filter"] = searchRequest.Filter;
         queryString["take"] = searchRequest.Take.ToString();
 

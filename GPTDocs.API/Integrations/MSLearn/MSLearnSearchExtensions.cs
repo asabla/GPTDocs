@@ -45,7 +45,7 @@ internal static class MSLearnSearchExtensions
                     Query = searchQuery,
                     Scope = ".Net",
                     Locale = "en-us",
-                    Facets = [ "category", "products", "tags" ],
+                    Facets = ["category", "products", "tags"],
                     Filter = "(scopes/any(s: s eq '.Net'))",
                     Take = 10,
                     ExpandScope = true,
