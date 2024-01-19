@@ -2,6 +2,7 @@ namespace GPTDocs.API.Integrations.MSLearn.Models;
 
 internal class SearchRequest
 {
+    public string Terms { get; set; } = null!;
     public string Query { get; set; } = null!;
     public string Scope { get; set; } = null!;
     public string Locale { get; set; } = null!;

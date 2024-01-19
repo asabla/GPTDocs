@@ -73,17 +73,26 @@ internal class MSLearnSearchService(
                 name: nameof(MSLearnSearchService));
 
         var queryString = HttpUtility.ParseQueryString(string.Empty);
-        queryString["search"] = searchRequest.Query;
-        queryString["scope"] = searchRequest.Scope;
         queryString["locale"] = searchRequest.Locale;
 
-        // TODO: implement facets
+        // When using terms it will not need any other parameters
+        if (string.IsNullOrWhiteSpace(searchRequest.Terms) is false)
+        {
+            queryString["terms"] = searchRequest.Terms;
+        }
+        else
+        {
+            queryString["search"] = searchRequest.Query;
+            queryString["scope"] = searchRequest.Scope;
 
-        queryString["$filter"] = searchRequest.Filter;
-        queryString["take"] = searchRequest.Take.ToString();
+            // TODO: implement facets
 
-        queryString["expandScope"] = searchRequest.ExpandScope.ToString();
-        queryString["partnerId"] = searchRequest.PartnerId;
+            queryString["$filter"] = searchRequest.Filter;
+            queryString["take"] = searchRequest.Take.ToString();
+
+            queryString["expandScope"] = searchRequest.ExpandScope.ToString();
+            queryString["partnerId"] = searchRequest.PartnerId;
+        }
 
         HttpResponseMessage response = await httpClient.GetAsync(
             requestUri: $"api/search?{queryString}",

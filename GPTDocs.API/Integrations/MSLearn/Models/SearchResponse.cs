@@ -1,8 +1,5 @@
-using System.ComponentModel;
-
 namespace GPTDocs.API.Integrations.MSLearn.Models;
 
-[Description("SearchResponse maaaaaybe")]
 internal class SearchResponse
 {
     public bool ScopeRemoved { get; set; } = false;

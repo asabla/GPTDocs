@@ -11,7 +11,7 @@ builder.ConfigureMSLearnSearch();
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddSwaggerGen(e => e.EnableAnnotations());
 }
 else
 {
@@ -37,6 +37,6 @@ if (app.Environment.IsDevelopment())
 
 // Setup search endpoints
 var searchGroup = app.MapGroup("/search");
-searchGroup.ConfigureMSLearnEndpoints();
+searchGroup.MapMSLearnEndpoints();
 
 app.Run();
