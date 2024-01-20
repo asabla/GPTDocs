@@ -7,13 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Register search services
 builder.ConfigureMSLearnSearch();
 
-// Setup OpenAPI
-if (builder.Environment.IsDevelopment())
-{
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen(e => e.EnableAnnotations());
-}
-else
+builder.Services.AddEndpointsApiExplorer();
+
+// Setup OpenAPI for production
+if (builder.Environment.IsProduction())
 {
     // TODO: read from configuration/environment variables
     builder.Services.AddSwaggerGen(option =>
