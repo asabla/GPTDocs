@@ -1,30 +1,21 @@
+using GPTDocs.API.Extensions;
 using GPTDocs.API.Integrations.MSLearn;
 
-using Microsoft.OpenApi.Models;
-
 var builder = WebApplication.CreateBuilder(args);
+
+// Register services
+builder.Services.AddEndpointsApiExplorer();
+
+// (Extension) Register and configure swagger generation
+builder.RegisterSwagger();
 
 // Register search services
 builder.ConfigureMSLearnSearch();
 
-builder.Services.AddEndpointsApiExplorer();
-
-// Setup OpenAPI for production
-if (builder.Environment.IsProduction())
-{
-    // TODO: read from configuration/environment variables
-    builder.Services.AddSwaggerGen(option =>
-    {
-        option.AddServer(new OpenApiServer
-        {
-            Url = "https://localhost:5001",
-            Description = "Local Development"
-        });
-    });
-}
-
 var app = builder.Build();
+
 app.UseSwagger();
+app.UseHttpsRedirection();
 
 if (app.Environment.IsDevelopment())
 {
