@@ -1,5 +1,6 @@
 using GPTDocs.API.Extensions;
 using GPTDocs.API.Integrations.MSLearn;
+using GPTDocs.API.Integrations.MozillaMdn;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.RegisterSwagger();
 
 // Register search services
 builder.ConfigureMSLearnSearch();
+builder.ConfigureMozillaMdnSearch();
 
 var app = builder.Build();
 
@@ -26,5 +28,6 @@ if (app.Environment.IsDevelopment())
 // Setup search endpoints
 var searchGroup = app.MapGroup("/search");
 searchGroup.MapMSLearnEndpoints();
+searchGroup.MapMozillaMdnEndpoints();
 
 app.Run();
