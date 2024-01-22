@@ -12,14 +12,7 @@ WORKDIR /src
 COPY --from=restore-env /src .
 COPY ["./Directory.Packages.props", "./GPTDocs.API/*", "./GPTDocs.API/"]
 
-RUN dotnet build \
-        # TODO: No-restore is not working properly now, needs to investigate
-        # --no-restore \  
-        --configuration Release \
-        --runtime linux-x64 \
-        "./GPTDocs.API/GPTDocs.API.csproj" \
-    && dotnet publish \
-        --no-restore \
+RUN dotnet publish \
         --configuration Release \
         --runtime linux-x64 \
         --output ./app \
