@@ -20,7 +20,7 @@ internal static class MSLearnEndpoints
                 [FromServices] IMSLearnSearchService msLearnSearchService,
                 [FromQuery] string searchQuery = "") =>
                     await SearchAsync(msLearnSearchService, searchQuery))
-            .Produces<SearchResponse>(StatusCodes.Status200OK)
+            .Produces<MSLearnSearchResponse>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
             .WithName("Micorsoft Learn Search")
             .WithDescription("This endpoint will search all categories on Microsoft Learn without any filters")
@@ -31,7 +31,7 @@ internal static class MSLearnEndpoints
                 [FromServices] IMSLearnSearchService msLearnSearchService,
                 [FromQuery] string searchQuery = "") =>
                     await SearchAzureAsync(msLearnSearchService, searchQuery))
-            .Produces<SearchResponse>(StatusCodes.Status200OK)
+            .Produces<MSLearnSearchResponse>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status500InternalServerError)
             .WithName("Azure Search")
@@ -43,7 +43,7 @@ internal static class MSLearnEndpoints
                 [FromServices] IMSLearnSearchService msLearnSearchService,
                 [FromQuery] string searchQuery = "") =>
                     await SearchDotNetAsync(msLearnSearchService, searchQuery))
-            .Produces<SearchResponse>(StatusCodes.Status200OK)
+            .Produces<MSLearnSearchResponse>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status500InternalServerError)
             .WithName(".Net Search")
@@ -54,22 +54,22 @@ internal static class MSLearnEndpoints
         return builder;
     }
 
-    private static async Task<Results<Ok<SearchResponse>, NotFound>> SearchAsync(
+    private static async Task<Results<Ok<MSLearnSearchResponse>, NotFound>> SearchAsync(
         IMSLearnSearchService msLearnSearchService,
         string searchQuery = "") =>
-            await msLearnSearchService.SearchAsync(new SearchRequest
+            await msLearnSearchService.SearchAsync(new MSLearnSearchRequest
             {
                 Terms = searchQuery,
                 Locale = "en-us",
                 Take = 10,
-            }) is SearchResponse searchResponse
+            }) is MSLearnSearchResponse searchResponse
                 ? TypedResults.Ok(searchResponse)
                 : TypedResults.NotFound();
 
-    private static async Task<Results<Ok<SearchResponse>, NotFound>> SearchAzureAsync(
+    private static async Task<Results<Ok<MSLearnSearchResponse>, NotFound>> SearchAzureAsync(
         IMSLearnSearchService msLearnSearchService,
         string searchQuery) =>
-            await msLearnSearchService.SearchAsync(new SearchRequest
+            await msLearnSearchService.SearchAsync(new MSLearnSearchRequest
             {
                 Query = searchQuery,
                 Scope = "Azure",
@@ -79,14 +79,14 @@ internal static class MSLearnEndpoints
                 Take = 10,
                 ExpandScope = true,
                 PartnerId = "LearnSite"
-            }) is SearchResponse searchResponse
+            }) is MSLearnSearchResponse searchResponse
                 ? TypedResults.Ok(searchResponse)
                 : TypedResults.NotFound();
 
-    private static async Task<Results<Ok<SearchResponse>, NotFound>> SearchDotNetAsync(
+    private static async Task<Results<Ok<MSLearnSearchResponse>, NotFound>> SearchDotNetAsync(
         IMSLearnSearchService msLearnSearchService,
         string searchQuery) =>
-            await msLearnSearchService.SearchAsync(new SearchRequest
+            await msLearnSearchService.SearchAsync(new MSLearnSearchRequest
             {
                 Query = searchQuery,
                 Scope = ".Net",
@@ -96,7 +96,7 @@ internal static class MSLearnEndpoints
                 Take = 10,
                 ExpandScope = true,
                 PartnerId = "LearnSite"
-            }) is SearchResponse searchResponse
+            }) is MSLearnSearchResponse searchResponse
                 ? TypedResults.Ok(searchResponse)
                 : TypedResults.NotFound();
 }

@@ -1,6 +1,6 @@
 namespace GPTDocs.API.Integrations.MSLearn.Models;
 
-internal class SearchResponse
+internal class MSLearnSearchResponse
 {
     public bool ScopeRemoved { get; set; } = false;
     public int Count { get; set; }
@@ -8,9 +8,9 @@ internal class SearchResponse
     public string SrchEng { get; set; } = null!;
     public bool TermHasSynonyms { get; set; }
 
-    public IEnumerable<Facet> Facets { get; set; }
-        = Enumerable.Empty<Facet>();
+    public IEnumerable<MSLearnFacet> Facets { get; set; }
+        = Enumerable.Empty<MSLearnFacet>();
 
-    public IEnumerable<Result> Results { get; set; }
-        = Enumerable.Empty<Result>();
+    public IEnumerable<MSLearnResult> Results { get; set; }
+        = Enumerable.Empty<MSLearnResult>();
 }

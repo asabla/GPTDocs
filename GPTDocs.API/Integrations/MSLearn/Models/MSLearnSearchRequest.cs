@@ -1,6 +1,6 @@
 namespace GPTDocs.API.Integrations.MSLearn.Models;
 
-internal class SearchRequest
+internal class MSLearnSearchRequest
 {
     public string Terms { get; set; } = null!;
     public string Query { get; set; } = null!;

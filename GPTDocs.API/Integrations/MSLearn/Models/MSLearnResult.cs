@@ -1,6 +1,6 @@
 namespace GPTDocs.API.Integrations.MSLearn.Models;
 
-internal class Result
+internal class MSLearnResult
 {
     public string Title { get; set; } = null!;
     public string Url { get; set; } = null!;

@@ -1,6 +1,6 @@
 namespace GPTDocs.API.Integrations.MSLearn.Models;
 
-internal class Facet
+internal class MSLearnFacet
 {
     public IEnumerable<Product> Products { get; set; }
         = Enumerable.Empty<Product>();

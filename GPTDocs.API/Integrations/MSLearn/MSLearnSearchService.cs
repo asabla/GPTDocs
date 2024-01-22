@@ -6,7 +6,7 @@ namespace GPTDocs.API.Integrations.MSLearn;
 
 internal interface IMSLearnSearchService
 {
-    Task<SearchResponse> SearchAsync(
+    Task<MSLearnSearchResponse> SearchAsync(
         string query,
         string scope,
         string locale,
@@ -17,12 +17,12 @@ internal interface IMSLearnSearchService
         string partnerId = "LearnSite",
         CancellationToken cancellationToken = default);
 
-    Task<SearchResponse> SearchAsync(
-        Action<SearchRequest> searchRequestAction,
+    Task<MSLearnSearchResponse> SearchAsync(
+        Action<MSLearnSearchRequest> searchRequestAction,
         CancellationToken cancellationToken = default);
 
-    Task<SearchResponse> SearchAsync(
-        SearchRequest searchRequest,
+    Task<MSLearnSearchResponse> SearchAsync(
+        MSLearnSearchRequest searchRequest,
         CancellationToken cancellationToken = default);
 }
 
@@ -31,7 +31,7 @@ internal class MSLearnSearchService(
         IHttpClientFactory httpClientFactory)
     : IMSLearnSearchService
 {
-    public async Task<SearchResponse> SearchAsync(
+    public async Task<MSLearnSearchResponse> SearchAsync(
             string query,
             string scope,
             string locale,
@@ -53,11 +53,11 @@ internal class MSLearnSearchService(
             PartnerId = partnerId
         }, cancellationToken: cancellationToken);
 
-    public async Task<SearchResponse> SearchAsync(
-        Action<SearchRequest> searchRequestAction,
+    public async Task<MSLearnSearchResponse> SearchAsync(
+        Action<MSLearnSearchRequest> searchRequestAction,
         CancellationToken cancellationToken = default)
     {
-        SearchRequest searchRequest = new();
+        MSLearnSearchRequest searchRequest = new();
         searchRequestAction(searchRequest);
 
         return await SearchAsync(
@@ -65,8 +65,8 @@ internal class MSLearnSearchService(
             cancellationToken: cancellationToken);
     }
 
-    public async Task<SearchResponse> SearchAsync(
-        SearchRequest searchRequest,
+    public async Task<MSLearnSearchResponse> SearchAsync(
+        MSLearnSearchRequest searchRequest,
         CancellationToken cancellationToken = default)
     {
         var httpClient = httpClientFactory.CreateClient(
@@ -106,6 +106,6 @@ internal class MSLearnSearchService(
                 response.StatusCode, errMessage);
         }
 
-        return await response.Content.ReadFromJsonAsync<SearchResponse>(cancellationToken) ?? null!;
+        return await response.Content.ReadFromJsonAsync<MSLearnSearchResponse>(cancellationToken) ?? null!;
     }
 }
