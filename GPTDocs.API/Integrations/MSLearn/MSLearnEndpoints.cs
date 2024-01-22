@@ -27,10 +27,22 @@ internal static class MSLearnEndpoints
             .WithSummary("Search everything on Microsoft Learn")
             .WithOpenApi();
 
+        msLearnGroup.MapGet("/azure", async (
+                [FromServices] IMSLearnSearchService msLearnSearchService,
+                [FromQuery] string searchQuery = "") =>
+                    await SearchAzureAsync(msLearnSearchService, searchQuery))
+            .Produces<SearchResponse>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound)
+            .Produces(StatusCodes.Status500InternalServerError)
+            .WithName("Azure Search")
+            .WithDescription("This endpoint will search all categories on Microsoft Learn with filters for Azure content")
+            .WithSummary("Search Microsoft Learn with filters for Azure content")
+            .WithOpenApi();
+
         msLearnGroup.MapGet("/dotnet", async (
-            [FromServices] IMSLearnSearchService msLearnSearchService,
-            [FromQuery] string searchQuery = "") =>
-                await SearchDotNetAsync(msLearnSearchService, searchQuery))
+                [FromServices] IMSLearnSearchService msLearnSearchService,
+                [FromQuery] string searchQuery = "") =>
+                    await SearchDotNetAsync(msLearnSearchService, searchQuery))
             .Produces<SearchResponse>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound)
             .Produces(StatusCodes.Status500InternalServerError)
@@ -50,6 +62,23 @@ internal static class MSLearnEndpoints
                 Terms = searchQuery,
                 Locale = "en-us",
                 Take = 10,
+            }) is SearchResponse searchResponse
+                ? TypedResults.Ok(searchResponse)
+                : TypedResults.NotFound();
+
+    private static async Task<Results<Ok<SearchResponse>, NotFound>> SearchAzureAsync(
+        IMSLearnSearchService msLearnSearchService,
+        string searchQuery) =>
+            await msLearnSearchService.SearchAsync(new SearchRequest
+            {
+                Query = searchQuery,
+                Scope = "Azure",
+                Locale = "en-us",
+                Facets = ["category", "products", "tags"],
+                Filter = "(scopes/any(s: s eq 'Azure'))",
+                Take = 10,
+                ExpandScope = true,
+                PartnerId = "LearnSite"
             }) is SearchResponse searchResponse
                 ? TypedResults.Ok(searchResponse)
                 : TypedResults.NotFound();
