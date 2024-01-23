@@ -24,8 +24,7 @@ internal static class MozillaMdnEndpoints
             .Produces(StatusCodes.Status404NotFound)
             .WithName("Mozilla MDN Search")
             .WithDescription("This endpoint searches in in HTML, CSS, Javascript, HTPP, Web APIs, Web Extensions and Web Technology categories")
-            .WithSummary("Search all categories on Mozilla MDN without any filters")
-            .WithOpenApi();
+            .WithSummary("Search all categories on Mozilla MDN without any filters");
 
         return builder;
     }

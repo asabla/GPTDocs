@@ -12,9 +12,9 @@ internal class MozillaMdnDocument
 
     public string Url => $"https://developer.mozilla.org/{Locale}/docs/{Slug}";
 
-    public HighlightObject Highlight { get; set; } = null!;
+    public MozillaMdnHighlight Highlight { get; set; } = null!;
 
-    internal class HighlightObject
+    internal class MozillaMdnHighlight
     {
         public IEnumerable<string> Body { get; set; }
             = Enumerable.Empty<string>();

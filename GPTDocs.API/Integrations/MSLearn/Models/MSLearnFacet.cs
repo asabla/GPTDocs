@@ -2,21 +2,21 @@ namespace GPTDocs.API.Integrations.MSLearn.Models;
 
 internal class MSLearnFacet
 {
-    public IEnumerable<Product> Products { get; set; }
-        = Enumerable.Empty<Product>();
+    public IEnumerable<MSLearnProduct> Products { get; set; }
+        = Enumerable.Empty<MSLearnProduct>();
 
     // TODO: Implement tags
 
-    public IEnumerable<CategoryValue> Category { get; set; }
-        = Enumerable.Empty<CategoryValue>();
+    public IEnumerable<MSLearnCategory> Category { get; set; }
+        = Enumerable.Empty<MSLearnCategory>();
 
-    public class CategoryValue
+    public class MSLearnCategory
     {
         public int Count { get; set; }
         public string Value { get; set; } = null!;
     }
 
-    public class Product
+    public class MSLearnProduct
     {
         public string DisplayName { get; set; } = null!;
         public int Count { get; set; }

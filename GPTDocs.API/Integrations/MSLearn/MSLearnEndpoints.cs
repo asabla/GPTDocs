@@ -24,8 +24,7 @@ internal static class MSLearnEndpoints
             .Produces(StatusCodes.Status404NotFound)
             .WithName("Micorsoft Learn Search")
             .WithDescription("This endpoint will search all categories on Microsoft Learn without any filters")
-            .WithSummary("Search everything on Microsoft Learn")
-            .WithOpenApi();
+            .WithSummary("Search everything on Microsoft Learn");
 
         msLearnGroup.MapGet("/azure", async (
                 [FromServices] IMSLearnSearchService msLearnSearchService,
@@ -36,8 +35,7 @@ internal static class MSLearnEndpoints
             .Produces(StatusCodes.Status500InternalServerError)
             .WithName("Azure Search")
             .WithDescription("This endpoint will search all categories on Microsoft Learn with filters for Azure content")
-            .WithSummary("Search Microsoft Learn with filters for Azure content")
-            .WithOpenApi();
+            .WithSummary("Search Microsoft Learn with filters for Azure content");
 
         msLearnGroup.MapGet("/dotnet", async (
                 [FromServices] IMSLearnSearchService msLearnSearchService,
@@ -48,8 +46,7 @@ internal static class MSLearnEndpoints
             .Produces(StatusCodes.Status500InternalServerError)
             .WithName(".Net Search")
             .WithDescription("This endpoint will search all categories on Microsoft Learn with filters for .Net content")
-            .WithSummary("Search Microsoft Learn with filters for .Net content")
-            .WithOpenApi();
+            .WithSummary("Search Microsoft Learn with filters for .Net content");
 
         return builder;
     }

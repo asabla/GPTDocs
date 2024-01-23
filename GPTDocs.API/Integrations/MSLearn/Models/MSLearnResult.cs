@@ -10,25 +10,25 @@ internal class MSLearnResult
 
     // TODO: Implement breadcrumbs
 
-    public DisplayUrlValue DisplayUrl { get; set; } = null!;
-    public IEnumerable<DescriptionValue> Descriptions { get; set; }
-        = Enumerable.Empty<DescriptionValue>();
+    public MSLearnDisplayUrl DisplayUrl { get; set; } = null!;
+    public IEnumerable<MSLearnDescription> Descriptions { get; set; }
+        = Enumerable.Empty<MSLearnDescription>();
 
-    public class DisplayUrlValue
+    public class MSLearnDisplayUrl
     {
         public string Content { get; set; } = null!;
-        public IEnumerable<HighLight> HitHighlights { get; set; }
-            = Enumerable.Empty<HighLight>();
+        public IEnumerable<MSLearnHighLight> HitHighlights { get; set; }
+            = Enumerable.Empty<MSLearnHighLight>();
     }
 
-    public class DescriptionValue
+    public class MSLearnDescription
     {
         public string Content { get; set; } = null!;
-        public IEnumerable<HighLight> HitHighlights { get; set; }
-            = Enumerable.Empty<HighLight>();
+        public IEnumerable<MSLearnHighLight> HitHighlights { get; set; }
+            = Enumerable.Empty<MSLearnHighLight>();
     }
 
-    public class HighLight
+    public class MSLearnHighLight
     {
         public int Start { get; set; }
         public int Length { get; set; }
