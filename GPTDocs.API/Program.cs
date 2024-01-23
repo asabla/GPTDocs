@@ -27,7 +27,12 @@ if (app.Environment.IsDevelopment())
 
 // Setup search endpoints
 var searchGroup = app.MapGroup("/search");
-searchGroup.MapMSLearnEndpoints();
-searchGroup.MapMozillaMdnEndpoints();
+searchGroup
+    .WithName("Search")
+    .WithSummary("API endpoints for searching across all search providers")
+    .WithTags("Search")
+    .WithOpenApi()
+    .MapMSLearnEndpoints()
+    .MapMozillaMdnEndpoints();
 
 app.Run();
